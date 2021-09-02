@@ -1,13 +1,5 @@
 import React, {useState} from 'react'
-import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    Button,
-    useColorScheme,
-    View,
-    Dimensions,
-} from 'react-native'
+import {StatusBar, StyleSheet, Text, Button, useColorScheme, View, Dimensions} from 'react-native'
 
 import {Colors} from 'react-native/Libraries/NewAppScreen'
 
@@ -77,7 +69,7 @@ const Game = props => {
         widthCenter = windowWidth / 2,
         heightCenter = windowHeight / 2,
         velocity = headSize,
-        update = 5,
+        update = 3,
         entities = {
             patternDisplay: {
                 position: [widthCenter, 0],
@@ -87,7 +79,7 @@ const Game = props => {
                 renderer: <PatternDisplay />,
             },
             head: {
-                position: [200, Math.floor(heightCenter)],
+                position: [widthCenter, heightCenter],
                 velocity: velocity,
                 direction: 'right',
                 updateFreq: update,
@@ -98,28 +90,19 @@ const Game = props => {
             },
             tail0: {
                 name: 'tail',
-                position: [
-                    200 - (headSize + tailSize + tailSpacer),
-                    Math.floor(heightCenter),
-                ],
+                position: [headSize + tailSpacer - widthCenter, heightCenter],
                 color: '#666',
                 renderer: <Tail />,
             },
             tail1: {
                 name: 'tail',
-                position: [
-                    200 - (headSize + (tailSize + tailSpacer) * 3),
-                    Math.floor(heightCenter),
-                ],
+                position: [(headSize + tailSpacer) * 3 - widthCenter, heightCenter],
                 color: '#666',
                 renderer: <Tail />,
             },
             tail2: {
                 name: 'tail',
-                position: [
-                    200 - (headSize + (tailSize + tailSpacer) * 5),
-                    Math.floor(heightCenter),
-                ],
+                position: [(headSize + tailSpacer) * 5 - widthCenter, heightCenter],
                 color: '#666',
                 direction: 'right',
                 renderer: <Tail />,
@@ -132,9 +115,7 @@ const Game = props => {
 
     return (
         <>
-            <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
+            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
             <View style={{flex: 1}}>
                 <GameInfoArea />
                 <GameEngine
@@ -150,12 +131,7 @@ const Game = props => {
                     }}
                 />
                 {running ? null : (
-                    <GameOver
-                        engine={engine}
-                        entities={entities}
-                        setRunning={setRunning}
-                        score={score}
-                    />
+                    <GameOver engine={engine} entities={entities} setRunning={setRunning} score={score} />
                 )}
             </View>
         </>

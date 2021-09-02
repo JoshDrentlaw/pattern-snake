@@ -7,4 +7,5 @@ module.exports = {
   semi: false,
   endOfLine: 'auto',
   tabWidth: 4,
+  printWidth: 120,
 }
