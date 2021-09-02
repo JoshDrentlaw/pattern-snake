@@ -5,33 +5,30 @@ import {
     Text,
     useColorScheme,
     View,
-    Dimensions
+    Dimensions,
 } from 'react-native'
 
 import styled from 'styled-components/native'
 
 export const SIZE = 50
 
-const PatternDisplay = ({ pattern, score }) => {
-
+const PatternDisplay = ({pattern, score}) => {
     return (
         <DisplayContainer>
             <PatternView>
-                {
-                    pattern.length > 0
-                        ? (
-                            <>
-                                <SequenceItemView color={pattern[0]} />
-                                <SequenceItemView color={pattern[1]} />
-                                <SequenceItemView color={pattern[2]} />
-                                <SequenceItemView color={pattern[3]} />
-                            </>
-                        )
-                        : null
-                }
+                {pattern.length > 0 ? (
+                    <>
+                        <SequenceItemView color={pattern[0]} />
+                        <SequenceItemView color={pattern[1]} />
+                        <SequenceItemView color={pattern[2]} />
+                        <SequenceItemView color={pattern[3]} />
+                    </>
+                ) : null}
             </PatternView>
             <View style={{marginRight: 10}}>
-                <Text style={{fontSize: 30, color: 'white'}}>Score: { score }</Text>
+                <Text style={{fontSize: 30, color: 'white'}}>
+                    Score: {score}
+                </Text>
             </View>
         </DisplayContainer>
     )

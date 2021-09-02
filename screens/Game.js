@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {
     StatusBar,
     StyleSheet,
@@ -6,25 +6,22 @@ import {
     Button,
     useColorScheme,
     View,
-    Dimensions
+    Dimensions,
 } from 'react-native'
 
-import {
-    Colors,
-} from 'react-native/Libraries/NewAppScreen'
+import {Colors} from 'react-native/Libraries/NewAppScreen'
 
 import styled from 'styled-components/native'
 
 // GAME ENGINE
-import { GameEngine } from 'react-native-game-engine'
+import {GameEngine} from 'react-native-game-engine'
 // ENTITIES
-import Head, { SIZE as headSize } from '../entities/Head'
-import Tail, { SIZE as tailSize, tailSpacer } from '../entities/Tail'
+import Head, {SIZE as headSize} from '../entities/Head'
+import Tail, {SIZE as tailSize, tailSpacer} from '../entities/Tail'
 import PatternDisplay from '../entities/PatternDisplay'
-import Grid from '../entities/Grid'
 // SYSTEMS
 import GameLoop from '../systems/GameLoop'
-import { useRef } from 'react'
+import {useRef} from 'react'
 
 const BlackBackdrop = styled.View`
     position: absolute;
@@ -45,22 +42,30 @@ const Score = styled.Text`
     margin-bottom: 15px;
 `
 
-const GameOver = ({ engine, entities, setRunning, score }) => {
+const GameOver = ({engine, entities, setRunning, score}) => {
     return (
         <BlackBackdrop>
             <View>
                 <Score>Score: {score}</Score>
             </View>
             <View>
-                <Button title="Restart" onPress={() => {
-                    engine.current.swap(entities)
-                    engine.current.start()
-                    setRunning(true)
-                }} />
+                <Button
+                    title="Restart"
+                    onPress={() => {
+                        engine.current.swap(entities)
+                        engine.current.start()
+                        setRunning(true)
+                    }}
+                />
             </View>
         </BlackBackdrop>
     )
 }
+
+const GameInfoArea = styled.View`
+    height: 50px;
+    background-color: black;
+`
 
 const Game = props => {
     const isDarkMode = useColorScheme() === 'dark',
@@ -72,17 +77,14 @@ const Game = props => {
         widthCenter = windowWidth / 2,
         heightCenter = windowHeight / 2,
         velocity = headSize,
-        update = 1,
+        update = 5,
         entities = {
-            /* grid: {
-                renderer: <Grid />
-            }, */
             patternDisplay: {
                 position: [widthCenter, 0],
                 pattern: [],
                 eaten: [],
                 score: 0,
-                renderer: <PatternDisplay />
+                renderer: <PatternDisplay />,
             },
             head: {
                 position: [200, Math.floor(heightCenter)],
@@ -92,26 +94,35 @@ const Game = props => {
                 update: update,
                 pelletDropFreq: update,
                 pelletDrop: update,
-                renderer: <Head />
+                renderer: <Head />,
             },
             tail0: {
                 name: 'tail',
-                position: [200 - (headSize + tailSize + tailSpacer), Math.floor(heightCenter)],
+                position: [
+                    200 - (headSize + tailSize + tailSpacer),
+                    Math.floor(heightCenter),
+                ],
                 color: '#666',
-                renderer: <Tail />
+                renderer: <Tail />,
             },
             tail1: {
                 name: 'tail',
-                position: [200 - (headSize + ((tailSize + tailSpacer) * 3)), Math.floor(heightCenter)],
+                position: [
+                    200 - (headSize + (tailSize + tailSpacer) * 3),
+                    Math.floor(heightCenter),
+                ],
                 color: '#666',
-                renderer: <Tail />
+                renderer: <Tail />,
             },
             tail2: {
                 name: 'tail',
-                position: [200 - (headSize + ((tailSize + tailSpacer) * 5)), Math.floor(heightCenter)],
+                position: [
+                    200 - (headSize + (tailSize + tailSpacer) * 5),
+                    Math.floor(heightCenter),
+                ],
                 color: '#666',
                 direction: 'right',
-                renderer: <Tail />
+                renderer: <Tail />,
             },
         }
 
@@ -121,9 +132,11 @@ const Game = props => {
 
     return (
         <>
-            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-            <View style={{ flex: 1 }}>
-                <View style={{ height: 50, backgroundColor: 'black' }}></View>
+            <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            />
+            <View style={{flex: 1}}>
+                <GameInfoArea />
                 <GameEngine
                     ref={engine}
                     running={running}
@@ -136,11 +149,14 @@ const Game = props => {
                         }
                     }}
                 />
-                {
-                    running
-                        ? null
-                        : <GameOver engine={engine} entities={entities} setRunning={setRunning} score={score} />
-                }
+                {running ? null : (
+                    <GameOver
+                        engine={engine}
+                        entities={entities}
+                        setRunning={setRunning}
+                        score={score}
+                    />
+                )}
             </View>
         </>
     )
