@@ -1,18 +1,21 @@
 import React from 'react'
-import {Dimensions} from 'react-native'
 
 import {SIZE} from '../entities/Head'
-import Tail, {tailSpacer} from '../entities/Tail'
+import Tail from '../entities/Tail'
 import Pellet from '../entities/Pellet'
 
-export default function (entities, {touches, dispatch}) {
+export default function (entities, {touches, dispatch, layout}) {
     const head = entities.head,
         patternDisplay = entities.patternDisplay,
-        top = 50,
-        bottom = Math.floor(Dimensions.get('window').height - 125),
+        width = (layout && layout.width) || 0,
+        height = (layout && layout.height) || 0,
+        top = 0,
+        bottom = (height - 2) / SIZE,
         left = 0,
-        right = Math.floor(Dimensions.get('window').width),
-        colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+        right = (width - 2) / SIZE,
+        gridSizeX = right / SIZE,
+        gridSizeY = bottom / SIZE,
+        colors = ['red', 'orange', 'yellow', 'green', 'blue', 'rebeccapurple']
     let tail = [],
         pellets = []
 
@@ -30,7 +33,7 @@ export default function (entities, {touches, dispatch}) {
         }
     }
 
-    // drop more pellets
+    // drop more pellets or eat pellets
     if (pellets.length === 0) {
         --head.pelletDrop
         if (head.pelletDrop === 0) {
@@ -57,17 +60,12 @@ export default function (entities, {touches, dispatch}) {
     } else {
         // eat pellet
         pellets = pellets.filter(p => {
-            if (
-                head.position[0] + SIZE >= p.position[0] &&
-                head.position[0] < p.position[0] + SIZE &&
-                head.position[1] + SIZE >= p.position[1] &&
-                head.position[1] < p.position[1] + SIZE
-            ) {
+            if (head.position[0] === p.position[0] && head.position[1] === p.position[1]) {
                 patternDisplay.eaten.push(p.color)
                 const patternComparer = patternDisplay.pattern.slice(0, patternDisplay.eaten.length)
 
                 if (patternDisplay.eaten.filter((e, i) => e !== patternComparer[i]).length > 0) {
-                    dispatch({msg: 'game-over', score: patternDisplay.score})
+                    dispatch({type: 'game-over', reason: 'Ate the wrong color', score: patternDisplay.score})
                 } else {
                     patternDisplay.score++
                     delete entities[p.id]
@@ -77,7 +75,7 @@ export default function (entities, {touches, dispatch}) {
                     tail.push({
                         name: 'tail',
                         position: [x, y],
-                        color: '#666',
+                        color: p.color,
                         renderer: <Tail />,
                     })
                 }
@@ -91,8 +89,12 @@ export default function (entities, {touches, dispatch}) {
         }
     }
 
-    // change direction with touch
+    // touch logic
     if (touches.length > 0) {
+        if (touches.filter(t => t.type === 'long-press').length > 0) {
+            dispatch({type: 'pause'})
+        }
+        // change direction with touch
         // filter to just move touches and get deltas
         touches
             .filter(t => t.type === 'move')
@@ -100,8 +102,8 @@ export default function (entities, {touches, dispatch}) {
                 // get absolute value of x and y
                 const x = Math.abs(pageX),
                     y = Math.abs(pageY),
-                    xTolerance = Math.abs(x - y) >= 10,
-                    yTolerance = Math.abs(y - x) >= 10
+                    xTolerance = Math.abs(x - y) >= 5,
+                    yTolerance = Math.abs(y - x) >= 5
 
                 // whichever one is greater will determine which direction your swiping MOST
                 // there will always be a bit of x and y registered on each swipe unless your perfect with your swipe
@@ -144,13 +146,13 @@ export default function (entities, {touches, dispatch}) {
             head.position[1] < top ||
             head.position[1] >= bottom
         ) {
-            dispatch({msg: 'game-over', score: patternDisplay.score})
+            dispatch({type: 'game-over', reason: 'Hit a wall', score: patternDisplay.score})
         }
 
         // check if head hit the tail
         tail.forEach(t => {
             if (t.position[0] === head.position[0] && t.position[1] === head.position[1]) {
-                dispatch({msg: 'game-over', score: patternDisplay.score})
+                dispatch({type: 'game-over', reason: 'Ate your own tail', score: patternDisplay.score})
             }
         })
 
@@ -206,8 +208,8 @@ export default function (entities, {touches, dispatch}) {
 
     function randomLocation() {
         return [
-            Math.round((Math.floor(Math.random() * (right - 75)) + 75) / SIZE) * SIZE,
-            Math.round((Math.floor(Math.random() * (bottom - 75)) + 75) / SIZE) * SIZE,
+            Math.round(Math.floor(Math.random() * (0 - right + 1)) + right),
+            Math.round(Math.floor(Math.random() * (0 - bottom + 1)) + bottom),
         ]
     }
 

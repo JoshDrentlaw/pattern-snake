@@ -1,25 +1,16 @@
 import React from 'react'
-import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    Dimensions
-} from 'react-native'
+import {StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions} from 'react-native'
 
 import styled from 'styled-components/native'
 
 export const SIZE = 10
 export const tailSpacer = 0
 
-const Tail = ({ position, color }) => {
-    const x = position[0] - (SIZE  / 2),
-        y = position[1] - (SIZE  / 2)
+const Tail = ({position, color}) => {
+    const x = position[0] * SIZE,
+        y = position[1] * SIZE
 
-    return (
-        <TailView x={x} y={y} color={color}></TailView>
-    )
+    return <TailView x={x} y={y} color={color} />
 }
 
 const TailView = styled.View`
@@ -29,7 +20,8 @@ const TailView = styled.View`
     left: ${props => props.x}px;
     top: ${props => props.y}px;
     background-color: ${props => props.color};
-    border: 1px solid #333;
+    border-radius: 2.5px;
+    border: 1px solid #20232a;
 `
 
 export default Tail

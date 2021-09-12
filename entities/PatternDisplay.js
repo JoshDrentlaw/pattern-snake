@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    Dimensions,
-} from 'react-native'
+import {StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions} from 'react-native'
 
 import styled from 'styled-components/native'
 
@@ -26,9 +19,7 @@ const PatternDisplay = ({pattern, score}) => {
                 ) : null}
             </PatternView>
             <View style={{marginRight: 10}}>
-                <Text style={{fontSize: 30, color: 'white'}}>
-                    Score: {score}
-                </Text>
+                <Text style={{fontSize: 30, color: 'white'}}>Score: {score}</Text>
             </View>
         </DisplayContainer>
     )
@@ -46,12 +37,17 @@ const DisplayContainer = styled.View`
 const PatternView = styled.View`
     flex: 1;
     flex-direction: row;
+    margin-top: 4px;
+    margin-left: 2px;
 `
 
 const SequenceItemView = styled.View`
     background-color: ${props => props.color};
     width: 40px;
     height: 40px;
+    margin-right: 5px;
+    border-radius: 3px;
+    border: 2px solid #ccc;
 `
 
 export default PatternDisplay
