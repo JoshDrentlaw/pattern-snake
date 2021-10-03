@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "237326521941",
+    "project_id": "pattern-snake",
+    "storage_bucket": "pattern-snake.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237326521941:android:d7d78a933649d8389ae6dc",
+        "android_client_info": {
+          "package_name": "com.patternsnake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237326521941-h19nt78lt1a24du7prevv4v1iojk06co.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patternsnake",
+            "certificate_hash": "3465be0ecef8a54680eed2a3f5b9be64c033d993"
+          }
+        },
+        {
+          "client_id": "237326521941-dlbp1emlmhs2s55g4k8hd7fl11ggtnv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoQyyEAupx_VreEEYQyr6OlX3LRJh-QoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237326521941-dlbp1emlmhs2s55g4k8hd7fl11ggtnv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
