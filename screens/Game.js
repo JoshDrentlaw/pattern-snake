@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {StatusBar, StyleSheet, Text, Button, useColorScheme, View, Dimensions} from 'react-native'
 
+import {TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob'
+
 import {Colors} from 'react-native/Libraries/NewAppScreen'
 
 import styled from 'styled-components/native'
@@ -196,6 +198,17 @@ const Game = props => {
         <>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
             <View style={{flex: 1}}>
+                <BannerAd
+                    unitId={TestIds.BANNER}
+                    size={BannerAdSize.SMART_BANNER}
+                    requestOptions={{requestNonPersonalizedAdsOnly: true}}
+                    onAdLoad={() => {
+                        console.log('ad loaded')
+                    }}
+                    onAdFailedToLoad={error => {
+                        console.error('ad failed: ', error)
+                    }}
+                />
                 <GameInfoArea />
                 <GameEngineArea
                     ref={engine}
