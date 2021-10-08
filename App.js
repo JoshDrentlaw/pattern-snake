@@ -6,11 +6,13 @@
  * @flow strict-local
  */
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View} from 'react-native'
 
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
+
+import auth from '@react-native-firebase/auth'
 
 // SCREENS
 import Start from './screens/Start'
@@ -19,6 +21,10 @@ import Game from './screens/Game'
 const Stack = createNativeStackNavigator()
 
 const App = () => {
+    /* if (initializing) {
+        return null
+    } */
+
     return (
         <NavigationContainer>
             <Stack.Navigator>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {StatusBar, StyleSheet, Text, Button, useColorScheme, View, Dimensions} from 'react-native'
 
+// import auth from '@react-native-firebase/auth'
 import {TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob'
 
 import {Colors} from 'react-native/Libraries/NewAppScreen'
@@ -201,7 +202,11 @@ const Game = props => {
                 <BannerAd
                     unitId={TestIds.BANNER}
                     size={BannerAdSize.SMART_BANNER}
-                    requestOptions={{requestNonPersonalizedAdsOnly: true}}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                        tagForChildDirectedTreatment: true,
+                        tagForUnderAgeOfConsent: true,
+                    }}
                     onAdLoad={() => {
                         console.log('ad loaded')
                     }}
