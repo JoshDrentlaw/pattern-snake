@@ -7,14 +7,30 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:237326521941:android:d7d78a933649d8389ae6dc",
+        "mobilesdk_app_id": "1:237326521941:android:d0fafb9c24480d639ae6dc",
         "android_client_info": {
           "package_name": "com.patternsnake"
         }
       },
       "oauth_client": [
         {
-          "client_id": "237326521941-h19nt78lt1a24du7prevv4v1iojk06co.apps.googleusercontent.com",
+          "client_id": "237326521941-b4c6vltm0lime5fh8pq91um15rtuu209.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patternsnake",
+            "certificate_hash": "f6e1346eb3f22b2d440912d3c71645cdacc0dd8a"
+          }
+        },
+        {
+          "client_id": "237326521941-e9spe4npcglr81ddkhl9jqgpbdn92p94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patternsnake",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "237326521941-fgsmus6ivg4d3dq1tpt0faf8h3sbj1rm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.patternsnake",
